@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.team_todo.components.EditDialog
 import com.example.team_todo.ui.theme.Team_todoTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -124,8 +125,9 @@ fun DefaultPreview() {
 //https://developer.android.com/jetpack/compose/components/scaffold?hl=ja
 @Composable
 fun MainContent(){
-    
-    Scaffold(floatingActionButton = {
+    EditDialog()
+
+        Scaffold(floatingActionButton = {
         FloatingActionButton(onClick = { /*TODO*/ }) {
             Icon(
                 imageVector = Icons.Default.Add,
