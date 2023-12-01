@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.rounded.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,10 +45,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
+
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
+                        MainContent()
                         Greeting("Android")
                         Greeting("Test")
                         MessageCard("メッセージカードです")
@@ -116,4 +119,21 @@ fun DefaultPreview() {
     Team_todoTheme {
         Greeting("Android")
     }
+}
+
+//https://developer.android.com/jetpack/compose/components/scaffold?hl=ja
+@Composable
+fun MainContent(){
+    
+    Scaffold(floatingActionButton = {
+        FloatingActionButton(onClick = { /*TODO*/ }) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "タスクの新規作成")
+        }
+
+    }) {
+        
+    }
+    
 }
