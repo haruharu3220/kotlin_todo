@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace 'com.example.team_todo'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.team_todo"
@@ -38,7 +38,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.1.1'
+        kotlinCompilerExtensionVersion '1.2.0'
     }
     packagingOptions {
         resources {
@@ -70,4 +70,6 @@ dependencies {
 
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$room_version")
+
+    implementation "androidx.room:room-ktx:$room_version"
 }
