@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">team_todo</string>
+    <string name="neco_content_description">かわいいねこねこ</string>
+    <string name="shopping_cart_content_desc">Shopping cart</string>
+</resources>
