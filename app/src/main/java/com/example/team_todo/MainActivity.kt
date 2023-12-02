@@ -30,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.team_todo.components.EditDialog
 import com.example.team_todo.ui.theme.Team_todoTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -126,12 +127,14 @@ fun DefaultPreview() {
 
 //https://developer.android.com/jetpack/compose/components/scaffold?hl=ja
 @Composable
-fun MainContent(){
-    val isShowDialog = remember { mutableStateOf(false) }
-    if(isShowDialog.value) EditDialog(isShowDialog)
+fun MainContent(viewModel: MainViewModel = hiltViewModel()){
+    //コンポーネント内で変数を管理すると画面回転を行った時に
+    //コンポーネントが再実行されて、初期化される→ダイアログが消える
+//    val isShowDialog = remember { mutableStateOf(false) }
+    if(viewModel.isShowDialog) EditDialog()
 
         Scaffold(floatingActionButton = {
-        FloatingActionButton(onClick = { isShowDialog.value = true }) {
+        FloatingActionButton(onClick = { viewModel.isShowDialog = true }) {
             Icon(
                 imageVector = Icons.Default.Add,
                 contentDescription = "タスクの新規作成")

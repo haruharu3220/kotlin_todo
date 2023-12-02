@@ -16,6 +16,8 @@ class MainViewModel @Inject constructor(private val taskDao: TaskDao): ViewModel
     var title by mutableStateOf("")
     var description by mutableStateOf("")
 
+    //ここで変数を定義したら画面回転の影響を受けない
+    var isShowDialog by mutableStateOf(false)
     fun createTask(){
         viewModelScope.launch {
             val newTask = Task(title = title, description = description)

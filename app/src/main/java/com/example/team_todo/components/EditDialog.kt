@@ -14,12 +14,11 @@ import com.example.team_todo.MainViewModel
 
 @Composable
 fun EditDialog(
-    isShowDialog : MutableState<Boolean>,
     viewModel : MainViewModel = hiltViewModel(),
 ) {
     AlertDialog(
         //ダイアログの外側をタップした時
-        onDismissRequest = { isShowDialog.value = false },
+        onDismissRequest = { viewModel.isShowDialog = false },
         title = {
                 Text(text = "タスク新規作成")
         },
@@ -45,7 +44,7 @@ fun EditDialog(
                     Spacer(modifier = Modifier.weight(1f))
                     Button(
                         modifier = Modifier.width(120.dp),
-                        onClick = { isShowDialog.value = false }
+                        onClick = { viewModel.isShowDialog = false }
                     ) {
                         Text(text = "キャンセル")
                     }
@@ -53,7 +52,7 @@ fun EditDialog(
                       Button(
                           modifier = Modifier.width(120.dp),
                           onClick = {
-                              isShowDialog.value = false
+                              viewModel.isShowDialog = false
                               viewModel.createTask()
                           }
                       ) {
