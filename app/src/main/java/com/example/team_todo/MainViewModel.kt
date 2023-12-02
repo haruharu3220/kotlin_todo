@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,15 +19,21 @@ class MainViewModel @Inject constructor(private val taskDao: TaskDao): ViewModel
 
     //ここで変数を定義したら画面回転の影響を受けない
     var isShowDialog by mutableStateOf(false)
+
+    //distinctUntilChanged = DBに変更があったがtaskの中身に変更がなければ更新しない
+    val tasks = taskDao.loadAllTasks().distinctUntilChanged()
+
     fun createTask(){
         viewModelScope.launch {
             val newTask = Task(title = title, description = description)
             taskDao.insertTask(newTask)
-            Log.d(
-                MainViewModel::class.simpleName,
-                "success create task"
-            )
+//            Log.d(
+//                MainViewModel::class.simpleName,
+//                "success create task"
+//            )
         }
+
+
 
     }
 }
