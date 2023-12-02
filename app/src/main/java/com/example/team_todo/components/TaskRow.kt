@@ -1,5 +1,6 @@
 package com.example.team_todo.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,9 +16,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.team_todo.Task
 
 @Composable
-fun TaskRow() {
+fun TaskRow(
+    task: Task,
+    onClickRow: (Task) -> Unit,
+    onClickDelete : (Task) -> Unit,
+    ) {
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -25,12 +32,14 @@ fun TaskRow() {
         elevation = 5.dp,
     ){
         Row(
-            modifier = Modifier.padding(10.dp),
+            modifier = Modifier
+                .clickable { onClickRow(task) }
+                .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically,
         ){
-            Text(text = "タスクタイトル")
+            Text(text = task.title)
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { onClickDelete(task) }) {
                 Icon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = "削除"
@@ -48,5 +57,9 @@ fun TaskRow() {
 @Preview
 @Composable
 fun TaskRowPreview(){
-    TaskRow()
+    TaskRow(
+        task = Task(title="プレビュー", description = "a"),
+        onClickRow = {},
+        onClickDelete = {}
+    )
 }
