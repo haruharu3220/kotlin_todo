@@ -19,6 +19,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.rounded.ShoppingCart
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -125,10 +127,11 @@ fun DefaultPreview() {
 //https://developer.android.com/jetpack/compose/components/scaffold?hl=ja
 @Composable
 fun MainContent(){
-    EditDialog()
+    val isShowDialog = remember { mutableStateOf(false) }
+    if(isShowDialog.value) EditDialog()
 
         Scaffold(floatingActionButton = {
-        FloatingActionButton(onClick = { /*TODO*/ }) {
+        FloatingActionButton(onClick = { isShowDialog.value = true }) {
             Icon(
                 imageVector = Icons.Default.Add,
                 contentDescription = "タスクの新規作成")

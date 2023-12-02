@@ -36,6 +36,7 @@ fun EditDialog() {
                     ) {
                         Text(text = "キャンセル")
                     }
+                      Spacer(modifier = Modifier.width(10.dp))
                       Button(
                           modifier = Modifier.width(120.dp),
                           onClick = { /*TODO*/ }
