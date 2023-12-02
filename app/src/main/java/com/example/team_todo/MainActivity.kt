@@ -128,7 +128,7 @@ fun DefaultPreview() {
 @Composable
 fun MainContent(){
     val isShowDialog = remember { mutableStateOf(false) }
-    if(isShowDialog.value) EditDialog()
+    if(isShowDialog.value) EditDialog(isShowDialog)
 
         Scaffold(floatingActionButton = {
         FloatingActionButton(onClick = { isShowDialog.value = true }) {
