@@ -9,9 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.team_todo.MainViewModel
 
 @Composable
-fun EditDialog(isShowDialog : MutableState<Boolean>) {
+fun EditDialog(
+    isShowDialog : MutableState<Boolean>,
+    viewModel : MainViewModel = hiltViewModel(),
+) {
     AlertDialog(
         //ダイアログの外側をタップした時
         onDismissRequest = { isShowDialog.value = false },
@@ -21,9 +26,15 @@ fun EditDialog(isShowDialog : MutableState<Boolean>) {
         text = {
                Column() {
                    Text(text = "タイトル")
-                   TextField(value = "", onValueChange = {/*Todo*/})
+                   TextField(
+                       value = viewModel.title,
+                       onValueChange = { viewModel.title = it}
+                   )
                    Text(text = "詳細")
-                   TextField(value = "", onValueChange = {/*Todo*/})
+                   TextField(
+                       value = viewModel.description,
+                       onValueChange = { viewModel.description = it}
+                   )
                }
         },
         buttons = {
