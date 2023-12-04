@@ -17,6 +17,12 @@ import com.example.team_todo.MainViewModel
 fun EditDialog(
     viewModel : MainViewModel = hiltViewModel(),
 ) {
+//    DisposableEffect: クリーンアップが必要な作用
+// https://developer.android.com/jetpack/compose/side-effects?hl=ja
+
+//    キーが変化した後またはコンポーザブルが Composition から退場したときにクリーンアップする必要がある副作用については、DisposableEffect を使用します。DisposableEffect キーが変化した場合、コンポーザブルはその現在の作用を破棄（クリーンアップ）して、作用を再度呼び出すことによりリセットする必要があります。
+//    たとえば、LifecycleObserver を使用し、Lifecycle イベントに基づいて分析イベントを送信する場合を考えます。Compose でこのイベントをリッスンするには、DisposableEffect を使用し、必要に応じてオブザーバーの登録と登録解除を行います。
+
     DisposableEffect(Unit){
         onDispose {
             viewModel.resetProperties()
