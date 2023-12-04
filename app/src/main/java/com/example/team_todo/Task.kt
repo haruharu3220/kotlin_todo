@@ -10,4 +10,8 @@ data class Task(
     @PrimaryKey(autoGenerate = true) val  id:Int = 0,
     var title:String,
     var description :String,
+    var isFinish :Boolean,
+//    UX的に不要
+//    var week : Array<String>,
+    var deadLine : Int
 )

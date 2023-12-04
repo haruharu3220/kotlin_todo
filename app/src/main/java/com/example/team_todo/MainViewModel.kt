@@ -17,11 +17,15 @@ class MainViewModel @Inject constructor(private val taskDao: TaskDao): ViewModel
     var title by mutableStateOf("")
     var description by mutableStateOf("")
 
-    //ここで変数を定義したら画面回転の影響を受けない
+    //ViewModel(このクラス)で変数を定義したら画面回転の影響を受けない
     var isShowDialog by mutableStateOf(false)
+
+    var isFinish by mutableStateOf(false)
+    var deadLine by mutableStateOf(0)
 
     //distinctUntilChanged = DBに変更があったがtaskの中身に変更がなければ更新しない
     val tasks = taskDao.loadAllTasks().distinctUntilChanged()
+
 
     private var editingTask: Task? = null
     val isEditing: Boolean
@@ -31,13 +35,19 @@ class MainViewModel @Inject constructor(private val taskDao: TaskDao): ViewModel
         editingTask = task
         title = task.title
         description = task.description
+        deadLine = task.deadLine
     }
 
 
 
     fun createTask(){
         viewModelScope.launch {
-            val newTask = Task(title = title, description = description)
+            val newTask = Task(
+                title = title,
+                description = description,
+                isFinish =  isFinish,
+                deadLine = deadLine,
+                )
             taskDao.insertTask(newTask)
 //            Log.d(
 //                MainViewModel::class.simpleName,
@@ -58,6 +68,8 @@ class MainViewModel @Inject constructor(private val taskDao: TaskDao): ViewModel
             viewModelScope.launch {
                 task.title = title
                 task.description = description
+                task.isFinish = isFinish
+                task.deadLine = deadLine
                 taskDao.updateTask(task)
             }
         }
@@ -68,5 +80,7 @@ class MainViewModel @Inject constructor(private val taskDao: TaskDao): ViewModel
         editingTask = null
         title = ""
         description = ""
+        isFinish = false
+        deadLine = 0
     }
 }

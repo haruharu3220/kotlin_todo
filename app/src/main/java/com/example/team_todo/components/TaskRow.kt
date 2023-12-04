@@ -5,10 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
@@ -37,6 +34,10 @@ fun TaskRow(
                 .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically,
         ){
+            Checkbox(checked = task.isFinish, onCheckedChange = {
+                task.isFinish != task.isFinish
+            })
+            Spacer(modifier = Modifier.weight(1f))
             Text(text = task.title)
             Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = { onClickDelete(task) }) {
@@ -58,7 +59,12 @@ fun TaskRow(
 @Composable
 fun TaskRowPreview(){
     TaskRow(
-        task = Task(title="プレビュー", description = "a"),
+        task = Task(
+            title="プレビュー",
+            description = "a",
+            isFinish = false,
+            deadLine = 0
+            ),
         onClickRow = {},
         onClickDelete = {}
     )
