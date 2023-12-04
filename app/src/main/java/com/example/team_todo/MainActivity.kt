@@ -130,7 +130,9 @@ fun MainContent(viewModel: MainViewModel = hiltViewModel()){
     //コンポーネント内で変数を管理すると画面回転を行った時に
     //コンポーネントが再実行されて、初期化される→ダイアログが消える
 //    val isShowDialog = remember { mutableStateOf(false) }
-    if(viewModel.isShowDialog) EditDialog()
+    if(viewModel.isShowDialog){
+        EditDialog()
+    }
 
         Scaffold(floatingActionButton = {
         FloatingActionButton(onClick = { viewModel.isShowDialog = true }) {
@@ -145,7 +147,10 @@ fun MainContent(viewModel: MainViewModel = hiltViewModel()){
         val tasks by viewModel.tasks.collectAsState(initial = emptyList())
             TaskList(
                 tasks = tasks,
-                onClickRow = {},
+                onClickRow = {
+                    viewModel.setEditingTask(it)
+                    viewModel.isShowDialog = true
+                },
                 onClickDelete = {viewModel.deleteTask(it)},
             )
         }

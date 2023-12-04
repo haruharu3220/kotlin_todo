@@ -6,6 +6,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -16,11 +17,17 @@ import com.example.team_todo.MainViewModel
 fun EditDialog(
     viewModel : MainViewModel = hiltViewModel(),
 ) {
+    DisposableEffect(Unit){
+        onDispose {
+            viewModel.resetProperties()
+        }
+    }
+    
     AlertDialog(
         //ダイアログの外側をタップした時
         onDismissRequest = { viewModel.isShowDialog = false },
         title = {
-                Text(text = "タスク新規作成")
+                Text(text = if(viewModel.isEditing)"タスク更新" else "タスク新規作成")
         },
         text = {
                Column() {
@@ -53,7 +60,11 @@ fun EditDialog(
                           modifier = Modifier.width(120.dp),
                           onClick = {
                               viewModel.isShowDialog = false
-                              viewModel.createTask()
+                              if(viewModel.isEditing){
+                                viewModel.updateTask()
+                                   }else{
+                                  viewModel.createTask()
+                              }
                           }
                       ) {
                           Text(text = "OK")
